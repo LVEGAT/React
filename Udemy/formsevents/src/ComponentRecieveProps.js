@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const ANIMALS_CONST ={
+    panda: 'https://www.nationalgeographic.com.es/medio/2018/02/27/panda__1280x720.jpg',
     cat : 'https://ichef.bbci.co.uk/news/320/cpsprodpb/AAE7/production/_111515734_gettyimages-1208779325.jpg',
     dolphin: 'https://images.unsplash.com/photo-1502894079506-97b0e4959603?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-    panda: 'https://www.nationalgeographic.com.es/medio/2018/02/27/panda__1280x720.jpg'
 }
+
+const ANIMALS = Object.keys(ANIMALS_CONST)
 
 class AnimalImage extends React.Component{
     state = {src: ANIMALS_CONST[this.props.animal]}
@@ -41,18 +43,20 @@ export default class ComponentReceiveProps extends React.Component{
 
     _renderButton = (animal) =>{
         return(
-            <button key={animal} onClick = {() => this.setState({animal})}> 
+            <button
+            disabled ={animal === this.state.animal} 
+            key={animal} 
+            onClick = {() => this.setState({animal})}> 
             {animal}
             </button>
         )
     }
 
-
     render(){
         return(
             <div> 
                 <h1>Ciclo de actualizacion</h1>
-                {Object.keys(ANIMALS_CONST).map(this._renderButton)}
+                {ANIMALS.map(this._renderButton)}
                 <AnimalImage animal ={this.state.animal}/>
             </div>
         )
