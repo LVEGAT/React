@@ -59,6 +59,7 @@ export default class ComponentReceiveProps extends React.Component{
                 {ANIMALS.map(this._renderButton)}
                 <AnimalImage animal ={this.state.animal}/>
             </div>
+            
         )
     }
 }
