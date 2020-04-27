@@ -1,24 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-const animals ={
-    cat : 'https://drive.google.com/open?id=10qSFhKgq2VC5w1Zl2m8s98klMgNoaxzT',
-    dolphin: 'https://drive.google.com/open?id=1YKOmL4LxHKpqeiBbotAtq4Fzx4JFhihI',
-    panda: 'https://drive.google.com/open?id=1o2A1DTLtRUR_X7itviceoPdIuLSO0Vf3'
+const ANIMALS_CONST ={
+    cat : 'https://ichef.bbci.co.uk/news/320/cpsprodpb/AAE7/production/_111515734_gettyimages-1208779325.jpg',
+    dolphin: 'https://images.unsplash.com/photo-1502894079506-97b0e4959603?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+    panda: 'https://www.nationalgeographic.com.es/medio/2018/02/27/panda__1280x720.jpg'
 }
 
 class AnimalImage extends React.Component{
-    state = {src: animals[this.props.animal]}
-   
+    state = {src: ANIMALS_CONST[this.props.animal]}
+
+    componentWillReceiveProps(nextProps){
+        console.log('component receive props');
+        console.log(nextProps);
+        this.setState({src : ANIMALS_CONST[nextProps.animal] })
+    }
+
     render(){
         return(
             <div>
-                <p>Selected Image</p>
+                <p>Selected Image {this.props.animal}</p>
                 <img
                     alt = {this.props.animal}
                     src = {this.state.src}
-                    width = '252'
+                    width = '250'
+                    
                 />
+               <h1>{this.state.src}</h1>
             </div>
         )
     }
@@ -30,16 +38,25 @@ AnimalImage.propTypes ={
 }
 
 AnimalImage.defaultProps = {
-    animal:'panda'
+    animal: 'dolphin'
 }
 
 export default class ComponentReceiveProps extends React.Component{
-   
+    state = { animal : 'panda'}
     render(){
         return(
             <div> 
-                <h1>Hola</h1>
-                <AnimalImage/>
+                <h1>Ciclo de actualizacion</h1>
+                <button onClick = {() => this.setState({animal:'panda'})}>
+                    Panda
+                </button>
+                <button onClick = {() => this.setState({animal:'cat'})}>
+                    Cat
+                </button>
+                <button onClick = {() => this.setState({animal:'dolphin'})}>
+                    Dolphin
+                </button>
+                <AnimalImage animal ={this.state.animal}/>
             </div>
         )
     }
