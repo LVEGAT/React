@@ -11,8 +11,6 @@ class AnimalImage extends React.Component{
     state = {src: ANIMALS_CONST[this.props.animal]}
 
     componentWillReceiveProps(nextProps){
-        console.log('component receive props');
-        console.log(nextProps);
         this.setState({src : ANIMALS_CONST[nextProps.animal] })
     }
 
@@ -37,25 +35,24 @@ AnimalImage.propTypes ={
     animal: PropTypes.oneOf(['cat', 'dolphin', 'panda'])
 }
 
-AnimalImage.defaultProps = {
-    animal: 'dolphin'
-}
 
 export default class ComponentReceiveProps extends React.Component{
     state = { animal : 'panda'}
+
+    _renderButton = (animal) =>{
+        return(
+            <button key={animal} onClick = {() => this.setState({animal})}> 
+            {animal}
+            </button>
+        )
+    }
+
+
     render(){
         return(
             <div> 
                 <h1>Ciclo de actualizacion</h1>
-                <button onClick = {() => this.setState({animal:'panda'})}>
-                    Panda
-                </button>
-                <button onClick = {() => this.setState({animal:'cat'})}>
-                    Cat
-                </button>
-                <button onClick = {() => this.setState({animal:'dolphin'})}>
-                    Dolphin
-                </button>
+                {Object.keys(ANIMALS_CONST).map(this._renderButton)}
                 <AnimalImage animal ={this.state.animal}/>
             </div>
         )
