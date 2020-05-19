@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types'
 
 const ANIMALS_CONST ={
@@ -9,14 +9,43 @@ const ANIMALS_CONST ={
 
 const ANIMALS = Object.keys(ANIMALS_CONST)
 
-class AnimalImage extends React.Component{
+class AnimalImage extends React.PureComponent{
     state = {src: ANIMALS_CONST[this.props.animal]}
 
     componentWillReceiveProps(nextProps){
+        console.clear();
         this.setState({src : ANIMALS_CONST[nextProps.animal] })
+        console.log("1-Component Will Recieve Props");
+        console.log(nextProps);
+    }
+   
+    shouldComponentUpdate(nextProps){
+        console.log("2-Should Component Update")
+        console.log(this.props.animal);
+        console.log(nextProps);
+        return this.props.animal !== nextProps.animal ;
+    }
+
+    componentWillUpdate(nextProps, nextState)
+    {
+        console.log("3. component will updated")
+        const img = document.querySelector('img');
+        console.log(img);
+        img.animate([{
+        filter : 'blur(0px)'
+        },
+        {
+        filter : 'blur(2px)'
+        },
+        {
+        duration: 500,
+        easing: 'ease'
+        }
+    ])
     }
 
     render(){
+        console.log('Render->')
         return(
             <div>
                 <p>Selected Image {this.props.animal}</p>
@@ -44,7 +73,7 @@ export default class ComponentReceiveProps extends React.Component{
     _renderButton = (animal) =>{
         return(
             <button
-            disabled ={animal === this.state.animal} 
+            //disabled ={animal === this.state.animal} 
             key={animal} 
             onClick = {() => this.setState({animal})}> 
             {animal}

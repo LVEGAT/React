@@ -17,6 +17,11 @@ export default class Article extends React.Component{
     static propTypes = {
         author : PropTypes.string.isRequired
     }
+
+    shouldComponentUpdate(a){
+
+        console.log("sass");
+    }
  /*   constructor(props){
         super(props)
         if(typeof props.author === undefined)
