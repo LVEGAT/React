@@ -6,7 +6,8 @@ import './App.css';
 //import Constructor from './Constructor';
 //import ComponentDidMount from './ExampleDidMount'
 //import FechExample from './Fech';
-import ComponentRecieveProps from './ComponentRecieveProps'
+//import ComponentRecieveProps from './ComponentRecieveProps'
+import Button from './Composition';
 
 class App extends React.Component {
 
@@ -29,6 +30,7 @@ class App extends React.Component {
 
   render() {
       return (
+
      /* <div className="App">
       <h4>Events</h4>
       <button onClick={this.handlerClick}>Click Me</button>
@@ -65,10 +67,54 @@ class App extends React.Component {
       //   <ComponentDidMount ></ComponentDidMount>
       // </div>
       <div>
-        <ComponentRecieveProps/>
+        <h4>Composicion vs. herencia</h4>
+        <Button label='Click Aqui con Composicion'/>
+        <br/>
+        <ButtonDanger  label='Cuidado con Composion'/>
+        <br/>
+        <ButtonWithLengend label ='button with explaination'
+        legend = 'Clicka el boton para hacer algo'
+        />
       </div>
     );
   }
 }
+
+/*
+class ButtonDanger extends Button{
+  constructor(props){
+      super(props)
+      this.borderColor = 'red';
+  }
+}*/
+
+class ButtonDanger extends React.Component{
+  render()
+  {
+    return<Button borderColor ='red' label ={this.props.label} />
+  }
+}
+
+class ButtonWithLengend extends React.Component{
+  render() {
+    return(
+      <div>
+        <Button boderColor ={this.props.boderColor} label ={this.props.label} />
+        <small>{this.props.legend}</small>
+      </div>
+    )
+  }
+}
+
+// class ButtonWithLengend extends Button{
+//   render() {
+//     return(
+//       <div>
+//       {super.render()}
+//       <small>{this.props.legend}</small>
+//       </div>
+//     )
+//   }
+// }
 
 export default App;
